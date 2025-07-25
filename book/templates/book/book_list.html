@@ -1,0 +1,44 @@
+{% extends 'book/base.html' %}
+
+{% block content %}
+<h2>All Books</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if messages %}
+        {%for message in messages%}
+        {{message}}
+        {%endfor%}
+        {%endif%}
+        {% for book in books %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.genre }}</td>
+            <td>{{ book.description }}</td>
+            <td>
+                <a href="{% url 'book-detail' book.id %}" class="btn btn-info btn-sm">View</a>
+                <a href="{% url 'book-delete' book.id %}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="{% url 'book-edit' book.id %}" class="btn btn-primary">Edit</a>
+                
+
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No books available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
